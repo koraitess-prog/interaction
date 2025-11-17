@@ -1,0 +1,100 @@
+body {
+    margin: 0;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #000; 
+}
+
+#image-container {
+    width: 80vh; 
+    height: 80vh; 
+    position: relative;
+    transform-origin: 50% 50%;
+    cursor: grab;
+    touch-action: none; 
+}
+
+/* ---------------------------------- */
+/* 1. ניהול קבוצות ואובייקטים */
+/* ---------------------------------- */
+.object-group {
+    display: none; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.object-group.active {
+    display: block; 
+}
+
+.object-group img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* שמירת פרופורציות התמונה */
+    object-fit: contain; 
+    
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+}
+
+.clean {
+    opacity: 1; 
+}
+
+/* ---------------------------------- */
+/* 2. שכבת הגליץ' (פשוט ויציב) */
+/* ---------------------------------- */
+
+#glitch-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* הגדרת רקע שקוף כברירת מחדל */
+    background: transparent;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.glitching {
+    /* אנימציה מהירה וקופצנית (steps(1)) */
+    animation: glitch-anim 0.08s infinite steps(1); 
+    
+    /* 🌟 משתמשים בצבע שקוף למחצה כבסיס גליץ' 🌟 */
+    background: rgba(255, 0, 255, 0.2); 
+}
+
+@keyframes glitch-anim {
+    /* אפקט גליץ' קלאסי של הזזת הפיקסלים ושינוי צבעי RGB */
+    0% {
+        transform: translate(2px, 1px);
+        background: rgba(255, 0, 0, 0.3); /* אדום */
+        opacity: 0.9;
+    }
+    33% {
+        transform: translate(-1px, 3px);
+        background: rgba(0, 255, 0, 0.3); /* ירוק */
+        opacity: 0.8;
+    }
+    66% {
+        transform: translate(3px, -2px);
+        background: rgba(0, 0, 255, 0.3); /* כחול */
+        opacity: 0.95;
+    }
+    100% {
+        transform: translate(0);
+        background: rgba(255, 0, 0, 0.3);
+        opacity: 1;
+    }
+}
